@@ -10,6 +10,10 @@ Feel free to explore the projects and learn more about backend development using
 - [Task Tracker](./task-tracker/README.md)
     - Build a CLI app to track your tasks and manage your to-do list. 
     - [Challenge Details](https://roadmap.sh/projects/task-tracker)
+- [GitHub User Activity](./github-user-activity/README.md)
+    - Build a CLI app to fetch the recent activity of a GitHub user and display it in the terminal.
+    - [Challenge Details](https://roadmap.sh/projects/github-user-activity)
+
 
 ## Futher Details about the challenge
 
