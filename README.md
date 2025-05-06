@@ -14,12 +14,14 @@ Feel free to explore the projects and learn more about backend development using
     - Build a CLI app to fetch the recent activity of a GitHub user and display it in the terminal.
     - [Challenge Details](https://roadmap.sh/projects/github-user-activity)
 - [Expense Tracker](./expense-tracker/README.md)
-    -  Build a CLI app for simple expense tracker to manage finances. 
+    - Build a CLI app for simple expense tracker to manage finances. 
     - [Challenge Details](https://roadmap.sh/projects/expense-tracker)
 - [Number Guessing Game](./number-guessing-game/README.md)
     - Build a CLI game to guess a random number between 1 and 100.
     - [Challenge Details](https://roadmap.sh/projects/number-guessing-game)
-
+- [TMDB CLI Tool](./tmdb-cli-tool/README.md)
+    - Build a CLI app to fetch movie information and display it in the terminal from The Movie Database (TMDB).
+    - [Challenge Details](https://roadmap.sh/projects/tmdb-cli)
 
 ## Futher Details about the challenge
 
