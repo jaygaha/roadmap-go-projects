@@ -21,7 +21,10 @@ Feel free to explore the projects and learn more about backend development using
     - [Challenge Details](https://roadmap.sh/projects/number-guessing-game)
 - [TMDB CLI Tool](./tmdb-cli-tool/README.md)
     - Build a CLI app to fetch movie information and display it in the terminal from The Movie Database (TMDB).
-    - [Challenge Details](https://roadmap.sh/projects/tmdb-cli)
+    - [Challenge Details](https://roadmap.sh/projects/tmdb-cli)- [Unit Converter](./unit-converter-app/README.md)
+- [Unit Converter](./unit-converter-app/README.md)
+    - Unit converter to convert between different units of measurement.
+    - [Challenge Details](https://roadmap.sh/projects/unit-converter)
 
 ## Futher Details about the challenge
 

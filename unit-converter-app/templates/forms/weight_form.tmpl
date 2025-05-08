@@ -1,0 +1,43 @@
+{{ define "weight_form" }}
+<div id="tab2" role="tabpanel" class="hidden">
+    <!-- Success message area - hidden by default -->
+    <div id="weight-success" class="mt-4 hidden">
+        <h1 class="text-[20px]">Result of your calculation</h1>
+        <p id="weight-result" class="text-green-500 mt-4"></p>
+        <button id="weight-reset" type="button" class="mt-5 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-300">Reset</button>
+    </div>
+    
+    <!-- Error message area - hidden by default -->
+    <div id="weight-error" class="mt-4 text-red-500 hidden">
+        <p id="weight-error-message"></p>
+    </div>
+    
+    <!-- Form is visible by default -->
+    <form id="weight-form" class="space-y-4">
+        <div>
+            <label for="converter-weight" class="block text-sm font-medium text-gray-700">Enter the weight to convert</label>
+            <input id="converter-weight" name="converter_weight" type="text" required
+                   class="mt-1 p-3 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50" />
+        </div>
+        <div>
+            <label for="converter-unit-from" class="block text-sm font-medium text-gray-700">Unit to convert from</label>
+            <select id="converter-unit-from" name="converter_unit_from" required class="mt-1 p-3 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+                <option value="" selected>Choose a unit</option>
+                {{ range .Weight_Units }}
+                    <option value="{{ . }}">{{ . }}</option>
+                {{ end }}
+            </select>
+        </div>
+        <div>
+            <label for="converter-unit-to" class="block text-sm font-medium text-gray-700">Unit to convert to</label>
+            <select id="converter-unit-to" name="converter_unit_to" required class="mt-1 p-3 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+                <option value="" selected>Choose a unit</option>
+                {{ range .Weight_Units }}
+                    <option value="{{ . }}">{{ . }}</option>
+                {{ end }}
+            </select>
+        </div>
+        <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-300">Convert</button>
+    </form>
+</div>
+{{end}}
