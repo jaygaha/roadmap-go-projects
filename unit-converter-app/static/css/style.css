@@ -1,0 +1,25 @@
+/* Custom colors for elegant theme */
+:root {
+    --color-primary: #2563eb; /* Blue-600 */
+    --color-primary-light: #3b82f6; /* Blue-500 */
+    --color-gray-light: #f3f4f6; /* Gray-100 */
+  }
+  
+/* Tab panel transitions */
+[role="tabpanel"] {
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+[role="tabpanel"].hidden {
+  display: block !important;
+  opacity: 0;
+  transform: translateY(10px);
+  pointer-events: none;
+  position: absolute;
+  visibility: hidden;
+}
+
+[role="tabpanel"]:not(.hidden) {
+  opacity: 1;
+  transform: translateY(0);
+}

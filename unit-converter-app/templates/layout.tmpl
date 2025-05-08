@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>{{ .Title }}</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body class="bg-gray-50 min-h-screen flex items-center justify-center p-4">
+  <div class="bg-white rounded-lg shadow-md w-full max-w-3xl">
+    <header class="border-b border-gray-200 px-6 py-4">
+      <h1 class="text-2xl font-semibold text-gray-800">Unit Converter</h1>
+      <p class="text-gray-500 mt-1">Unit converter to convert between different units of measurement using Go.</p>
+    </header>
+    <nav class="border-b border-gray-200">
+      <ul class="flex space-x-2 px-4 sm:px-6" role="tablist">
+        <li role="presentation">
+          <button id="tab-btn-1" aria-controls="tab1" aria-selected="true" role="tab"
+                  class="inline-block py-2 px-4 rounded-t-lg text-blue-600 border-b-2 border-blue-600 font-medium focus:outline-none"
+                  onclick="showTab(1)">Length</button>
+        </li>
+        <li role="presentation">
+          <button id="tab-btn-2" aria-controls="tab2" aria-selected="false" role="tab"
+                  class="inline-block py-2 px-4 rounded-t-lg text-gray-500 hover:text-blue-600 hover:border-blue-600 border-b-2 border-transparent font-medium focus:outline-none"
+                  onclick="showTab(2)">Weight</button>
+        </li>
+        <li role="presentation">
+          <button id="tab-btn-3" aria-controls="tab3" aria-selected="false" role="tab"
+                  class="inline-block py-2 px-4 rounded-t-lg text-gray-500 hover:text-blue-600 hover:border-blue-600 border-b-2 border-transparent font-medium focus:outline-none"
+                  onclick="showTab(3)">Temperature</button>
+        </li>
+      </ul>
+    </nav>
+    <section class="p-6 text-gray-700">
+      {{ template "length_form" . }}
+      {{ template "weight_form" . }}
+      {{ template "temperature_form" . }}
+    </section>
+  </div>
+<script src="/static/js/tabs.js"></script>
+</body>
+</html>
