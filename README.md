@@ -25,6 +25,9 @@ Feel free to explore the projects and learn more about backend development using
 - [Unit Converter](./unit-converter-app/README.md)
     - Unit converter to convert between different units of measurement.
     - [Challenge Details](https://roadmap.sh/projects/unit-converter)
+- [Personal Blog App](./personal-blog-app/README.md)
+    - A simple blog application with user authentication and admin dashboard.
+    - [Challenge Details](https://roadmap.sh/projects/personal-blog)
 
 ## Futher Details about the challenge
 

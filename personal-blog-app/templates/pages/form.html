@@ -1,0 +1,27 @@
+{{ define "content" }}
+<div id="blog-form" class="bg-white p-6 rounded-lg shadow-lg">
+    <h3 class="text-lg font-semibold mb-4 text-purple-700">{{ .Data.FormTitle }}</h3>
+    <form action="{{ .Data.FormUrl}}" method="POST">
+        <input type="hidden" name="_method" value="{{.Data.FormMethod }}">
+        <input type="hidden" name="id" value="{{.Data.FormData.ID}}">
+        <div class="space-y-4">
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Title</label>
+                <input name="title" type="text" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required value="{{ .Data.FormData.Title}}">
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Date</label>
+                <input name="created_at" type="date" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required value="{{ .Data.FormData.CreatedAt}}">
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Content</label>
+                <textarea name="description" rows="4" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>{{ .Data.FormData.Description}}</textarea>
+            </div>
+            <div class="flex space-x-2">
+                <button type="submit" class="bg-teal-500 text-white px-4 py-2 rounded-lg hover:bg-teal-600">Save</button>
+                <a href="/admin" class="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600">Cancel</a>
+            </div>
+        </div>
+    </form>
+</div>
+{{ end }}

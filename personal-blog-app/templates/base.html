@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{.Title}}: Blog Template</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .font-mulish { font-family: "Mulish", sans-serif; }
+    </style>
+</head>
+<body class="bg-orange-100 font-mulish">
+    <!-- Header -->
+    <header class="bg-purple-500 text-white p-4">
+        <div class="container mx-auto flex items-center justify-between">
+            <h1 class="text-2xl font-bold">
+                <a href="/" class="transition">Personal Blog</a>
+            </h1>
+              <nav>
+                <ul class="flex space-x-6 font-medium">
+                {{ if .Data.IsLoggedIn }}
+                  <li><a href="/admin" class="hover:text-teal-600 transition">Dashboard</a></li>
+                  <li><a href="/logout" class="text-indigo-600 font-semibold hover:text-red-800 transition">Logout</a></li>
+                {{ else }}
+                  <li><a href="/login" class="hover:text-teal-600 transition">Login</a></li>
+                {{ end }}
+                </ul>
+              </nav>
+        </div>
+    </header>
+
+    <!-- Content -->
+    <main class="max-w-3xl mx-auto p-4">
+        {{ template "content" . }}
+    </main>
+</body>
+</html>

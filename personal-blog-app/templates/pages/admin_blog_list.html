@@ -1,0 +1,50 @@
+{{ define "content" }}
+<div class="flex justify-between items-center mb-4">
+    <h2 class="text-xl font-semibold text-purple-700 font-poppins">{{ .Data.Title }}</h2>
+    <a href="/blogs/new" class="bg-teal-500 text-white px-4 py-2 rounded-lg hover:bg-coral-600">Add New Blog</a>
+</div>
+
+<!-- Blog List -->
+<div id="admin-blog-list" class="space-y-4">
+    {{ if eq (len .Data.Posts) 0 }}
+	<div class="p-4 mb-4 text-md text-red-800 rounded-lg bg-red-50" role="alert">
+        No posts found. Please add a new blog post.
+    </div>
+	{{ else }}
+    {{ range .Data.Posts }}
+    <div class="bg-white p-4 rounded-lg shadow-lg flex justify-between items-center">
+        <div>
+            <h3 class="text-lg font-medium text-purple-700 font-poppins">{{.Title }}</h3>
+            <p class="text-gray-600">Published on: {{ .CreatedAt.Format "January 2, 2006" }}</p>
+        </div>
+        <div class="space-x-2">
+            <a href="/edit/{{ .ID }}" class="bg-yellow-400 text-white px-3 py-1 rounded-lg hover:bg-yellow-500">Edit</a>
+            <form action="/blogs/delete" method="POST" class="inline">
+                <input type="hidden" name="id" value="{{ .ID }}">
+                <button type="submit" class="bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-coral-600">Delete</button>
+            </form>
+        </div>
+    </div>
+    {{ end }}
+    {{ end }}
+</div>
+
+<!-- Pagination -->
+{{ if gt .Data.Pagination.TotalPages 1  }}
+<div class="mt-6 flex justify-between items-center">
+	{{ if .Data.Pagination.HasPrev }}
+	<a href="?page={{ sub .Data.Pagination.CurrentPage 1 }}" class="text-teal-600 hover:text-teal-800">Previous</a>
+	{{ else }}
+	<a href="#" class="text-teal-600 hover:text-teal-800 disabled:text-gray-400" aria-disabled="true">Previous</a>
+	{{ end }}
+
+	<span class="text-gray-700">Page {{ .Data.Pagination.CurrentPage }} of {{ .Data.Pagination.TotalPages }}</span>
+
+	{{ if .Data.Pagination.HasNext }}
+	<a href="?page={{ add .Data.Pagination.CurrentPage 1 }}" class="text-teal-600 hover:text-teal-800">Next</a>
+	{{ else }}
+	<a href="#" class="text-teal-600 hover:text-teal-800 disabled:text-gray-400" aria-disabled="true">Next</a>
+	{{ end }}
+</div>
+{{ end }}
+{{ end }}
