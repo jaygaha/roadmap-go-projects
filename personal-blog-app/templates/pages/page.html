@@ -1,0 +1,7 @@
+{{ define "content" }}
+<div id="blog-post" class="bg-white p-6 rounded-lg shadow-lg">
+    <h2 id="blog-title" class="text-2xl font-semibold mb-2 text-purple-700">{{ .Data.Post.Title }}</h2>
+    <p id="blog-date" class="text-gray-600 mb-4">Published on: {{ .Data.Post.CreatedAt.Format "January 2, 2006" }}</p>
+    <p id="blog-content">{{ .Data.Post.Description }}</p>
+</div>
+{{ end }}

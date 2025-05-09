@@ -1,0 +1,26 @@
+{{ define "content" }}
+<div class="bg-white p-6 rounded-lg shadow-lg">
+    <h2 class="text-xl font-semibold mb-4 text-purple-700 font-poppins">Login</h2>
+    {{ if .Data.Error}}
+    <div class="p-4 mb-4 text-md text-red-800 rounded-lg bg-red-50" role="alert">
+        <span class="font-medium">Error!</span> {{ .Data.Error }}
+    </div>
+    {{ end }}
+    <form action="/login" method="POST">
+        <div class="space-y-4">
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Email</label>
+                <input name="email" type="email" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required value="jaygaha@gmail.com">
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Password</label>
+                <input name="password" type="password" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required value="admin@123">
+            </div>
+            <div class="flex space-x-2">
+                <button type="submit" class="bg-teal-500 text-white px-4 py-2 rounded-lg hover:bg-teal-600">Login</button>
+                <a href="/" class="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600">Cancel</a>
+            </div>
+        </div>
+    </form>
+</div>
+{{ end }}
