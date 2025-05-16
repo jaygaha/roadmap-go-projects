@@ -1,0 +1,140 @@
+{
+    "info": {
+        "_postman_id": "0b686665-5d13-49b4-bbbe-b68dd09beb3c",
+        "name": "go-blogging-platform",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+        "description": ""
+    },
+    "item": [
+        {
+            "name": "Ping",
+            "request": {
+                "method": "GET",
+                "url": {
+                    "raw": "http://localhost:8800/ping",
+                    "path": [
+                        "ping"
+                    ],
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "8800"
+                }
+            }
+        },
+        {
+            "name": "Create Blog",
+            "request": {
+                "method": "POST",
+                "url": {
+                    "raw": "http://localhost:8800/posts",
+                    "path": [
+                        "posts"
+                    ],
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "8800"
+                },
+                "body": {
+                    "mode": "raw",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    },
+                    "raw": "{\n  \"title\": \"My Second Blog Post\",\n  \"content\": \"This is the content of my second blog post.\",\n  \"category\": \"Technology\",\n  \"tags\": [\n    \"Tech\",\n    \"Programming\"\n  ]\n}"
+                }
+            }
+        },
+        {
+            "name": "Update Blog",
+            "request": {
+                "method": "PUT",
+                "url": {
+                    "raw": "http://localhost:8800/posts/1",
+                    "path": [
+                        "posts",
+                        "1"
+                    ],
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "8800"
+                },
+                "body": {
+                    "mode": "raw",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    },
+                    "raw": "{\n  \"title\": \"My First Blog Post Updated\",\n  \"content\": \"This is the content of my first blog post.\",\n  \"category\": \"Technology\",\n  \"tags\": [\n    \"Tech\",\n    \"Programming\"\n  ]\n}"
+                }
+            }
+        },
+        {
+            "name": "Delete Blog",
+            "request": {
+                "method": "DELETE",
+                "url": {
+                    "raw": "http://localhost:8800/posts/1",
+                    "path": [
+                        "posts",
+                        "1"
+                    ],
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "8800"
+                }
+            }
+        },
+        {
+            "name": "Get Blog",
+            "request": {
+                "method": "GET",
+                "url": {
+                    "raw": "http://localhost:8800/posts/1",
+                    "path": [
+                        "posts",
+                        "1"
+                    ],
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "8800"
+                }
+            }
+        },
+        {
+            "name": "Get All Blogs",
+            "request": {
+                "method": "GET",
+                "url": {
+                    "raw": "http://localhost:8800/posts?term=post",
+                    "query": [
+                        {
+                            "key": "term",
+                            "value": "post"
+                        }
+                    ],
+                    "variable": [],
+                    "path": [
+                        "posts"
+                    ],
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "8800"
+                }
+            }
+        }
+    ]
+}

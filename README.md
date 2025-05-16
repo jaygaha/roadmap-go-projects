@@ -28,6 +28,9 @@ Feel free to explore the projects and learn more about backend development using
 - [Personal Blog App](./personal-blog-app/README.md)
     - A simple blog application with user authentication and admin dashboard.
     - [Challenge Details](https://roadmap.sh/projects/personal-blog)
+- [Blogging Platform API](./blogging-platform-api/README.md)
+    - A RESTful API for a blogging platform with CRUD operations.
+    - [Challenge Details](https://roadmap.sh/projects/blogging-platform-api)
 
 ## Futher Details about the challenge
 
