@@ -32,6 +32,11 @@ Feel free to explore the projects and learn more about backend development using
     - A RESTful API for a blogging platform with CRUD operations.
     - [Challenge Details](https://roadmap.sh/projects/blogging-platform-api)
 
+## Intermediate projects
+- [Caching Proxy](./intermediate/caching-proxy-server/README.md)
+    - Build a caching server that caches responses from other servers. 
+    - [Challenge Details](https://roadmap.sh/projects/caching-server)
+
 ## Futher Details about the challenge
 
 - [roadmap.sh](https://roadmap.sh/backend/projects)
