@@ -1,0 +1,397 @@
+{
+    "info": {
+        "_postman_id": "f4be1b5d-7682-4b7a-a9f4-32e62bab214f",
+        "name": "go-expense-tracker-api",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+        "description": ""
+    },
+    "item": [
+        {
+            "name": "Auth",
+            "item": [
+                {
+                    "name": "Login",
+                    "request": {
+                        "method": "POST",
+                        "url": {
+                            "raw": "http://localhost:8800/api/v1/auth/login",
+                            "path": [
+                                "api",
+                                "v1",
+                                "auth",
+                                "login"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "8800"
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n  \"email\": \"jaygaha@gmail.com\",\n  \"password\": \"root@123\"\n}"
+                        }
+                    }
+                },
+                {
+                    "name": "Signup",
+                    "request": {
+                        "method": "POST",
+                        "url": {
+                            "raw": "http://localhost:8800/api/v1/auth/signup",
+                            "path": [
+                                "api",
+                                "v1",
+                                "auth",
+                                "signup"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "8800"
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n  \"name\": \"Jay\",\n  \"email\": \"jaygaha@gmail.com\",\n  \"password\": \"secretPassword\"\n}"
+                        }
+                    }
+                },
+                {
+                    "name": "Logout",
+                    "request": {
+                        "method": "POST",
+                        "url": {
+                            "raw": "http://localhost:8800/api/v1/auth/logout",
+                            "path": [
+                                "api",
+                                "v1",
+                                "auth",
+                                "logout"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "8800"
+                        },
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NDg0ODI5NDgsInN1YiI6MX0.0cA0AQ9nYxdZnnQ0FK21crp79yRcr0ByogL8oxcRBJk",
+                                    "type": "string"
+                                }
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Expense Category",
+            "item": [
+                {
+                    "name": "Create",
+                    "request": {
+                        "method": "POST",
+                        "url": {
+                            "raw": "http://localhost:8800/api/v1/categories",
+                            "path": [
+                                "api",
+                                "v1",
+                                "categories"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "8800"
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n  \"name\": \"Education\"\n}"
+                        }
+                    }
+                },
+                {
+                    "name": "List",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "http://localhost:8800/api/v1/categories",
+                            "path": [
+                                "api",
+                                "v1",
+                                "categories"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "8800"
+                        },
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NDg0ODAwOTUsInVzZXJfaWQiOjF9.o7puV8U2Ih5Z2aYu_mM7FtzMZJoHweCVJ7mArSSJYoc",
+                                    "type": "string"
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Detail",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "http://localhost:8800/api/v1/categories/1",
+                            "path": [
+                                "api",
+                                "v1",
+                                "categories",
+                                "1"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "8800"
+                        }
+                    }
+                },
+                {
+                    "name": "Update",
+                    "request": {
+                        "method": "PUT",
+                        "url": {
+                            "raw": "http://localhost:8800/api/v1/categories/8",
+                            "path": [
+                                "api",
+                                "v1",
+                                "categories",
+                                "8"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "8800"
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n  \"name\": \"Educations\"\n}"
+                        }
+                    }
+                },
+                {
+                    "name": "Delete",
+                    "request": {
+                        "method": "DELETE",
+                        "url": {
+                            "raw": "http://localhost:8800/api/v1/categories/7",
+                            "path": [
+                                "api",
+                                "v1",
+                                "categories",
+                                "7"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "8800"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Expense",
+            "item": [
+                {
+                    "name": "Create",
+                    "request": {
+                        "method": "POST",
+                        "url": {
+                            "raw": "http://localhost:8800/api/v1/expenses",
+                            "path": [
+                                "api",
+                                "v1",
+                                "expenses"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "8800"
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n  \"title\": \"Suica recharge\",\n  \"amount\": 1000,\n  \"expense_category_id\": 2\n}"
+                        }
+                    }
+                },
+                {
+                    "name": "List",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "http://localhost:8800/api/v1/expenses?filter=custom&start_date=2025-05-01&end_date=2025-05-25",
+                            "query": [
+                                {
+                                    "key": "filter",
+                                    "value": "custom"
+                                },
+                                {
+                                    "key": "start_date",
+                                    "value": "2025-05-01"
+                                },
+                                {
+                                    "key": "end_date",
+                                    "value": "2025-05-25"
+                                }
+                            ],
+                            "variable": [],
+                            "path": [
+                                "api",
+                                "v1",
+                                "expenses"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "8800"
+                        },
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NDg0ODAwOTUsInVzZXJfaWQiOjF9.o7puV8U2Ih5Z2aYu_mM7FtzMZJoHweCVJ7mArSSJYoc",
+                                    "type": "string"
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Detail",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "http://localhost:8800/api/v1/expenses/1",
+                            "path": [
+                                "api",
+                                "v1",
+                                "expenses",
+                                "1"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "8800"
+                        }
+                    }
+                },
+                {
+                    "name": "Update",
+                    "request": {
+                        "method": "PUT",
+                        "url": {
+                            "raw": "http://localhost:8800/api/v1/expenses/2",
+                            "path": [
+                                "api",
+                                "v1",
+                                "expenses",
+                                "2"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "8800"
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n  \"title\": \"Suica recharge\",\n  \"amount\": 999,\n  \"expense_category_id\": 2\n}"
+                        }
+                    }
+                },
+                {
+                    "name": "Delete",
+                    "request": {
+                        "method": "DELETE",
+                        "url": {
+                            "raw": "http://localhost:8800/api/v1/expenses/2",
+                            "path": [
+                                "api",
+                                "v1",
+                                "expenses",
+                                "2"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "8800"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Health",
+            "request": {
+                "method": "GET",
+                "url": {
+                    "raw": "http://localhost:8800/health",
+                    "path": [
+                        "health"
+                    ],
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "8800"
+                }
+            }
+        }
+    ]
+}
