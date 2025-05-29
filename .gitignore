@@ -25,6 +25,7 @@ go.sum
 *.swo
 *.bak
 *.tmp
+.vscode/
 
 # Logs
 *.log
@@ -38,3 +39,6 @@ go.sum
 
 # Environment variables
 .env
+
+# Database
+*.db

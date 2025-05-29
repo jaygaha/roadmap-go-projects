@@ -31,6 +31,9 @@ Feel free to explore the projects and learn more about backend development using
 - [Blogging Platform API](./blogging-platform-api/README.md)
     - A RESTful API for a blogging platform with CRUD operations.
     - [Challenge Details](https://roadmap.sh/projects/blogging-platform-api)
+- [Expense Tracker API](./expense-tracker-api/README.md)
+    - A RESTful API for an expense tracker with CRUD operations.
+    - [Challenge Details](https://roadmap.sh/projects/expense-tracker-api)
 
 ## Intermediate projects
 - [Caching Proxy](./intermediate/caching-proxy-server/README.md)
