@@ -34,6 +34,9 @@ Feel free to explore the projects and learn more about backend development using
 - [Expense Tracker API](./expense-tracker-api/README.md)
     - A RESTful API for an expense tracker with CRUD operations.
     - [Challenge Details](https://roadmap.sh/projects/expense-tracker-api)
+- [Todo API](./todo-api/README.md)
+    - A RESTful API to allow users to manage their to-do list.
+    - [Challenge Details](https://roadmap.sh/projects/todo-list-api)
 
 ## Intermediate projects
 - [Caching Proxy](./intermediate/caching-proxy-server/README.md)
