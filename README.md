@@ -37,6 +37,9 @@ Feel free to explore the projects and learn more about backend development using
 - [Todo API](./todo-api/README.md)
     - A RESTful API to allow users to manage their to-do list.
     - [Challenge Details](https://roadmap.sh/projects/todo-list-api)
+- [Weather API](./weather-api/README.md)
+    - A weather API that fetches and returns weather data. 
+    - [Challenge Details](https://roadmap.sh/projects/weather-api-wrapper-service)
 
 ## Intermediate projects
 - [Caching Proxy](./intermediate/caching-proxy-server/README.md)

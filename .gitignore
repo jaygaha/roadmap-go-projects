@@ -42,3 +42,4 @@ go.sum
 
 # Database
 *.db
+*.rdb
