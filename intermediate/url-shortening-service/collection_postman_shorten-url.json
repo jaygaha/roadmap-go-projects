@@ -1,0 +1,218 @@
+{
+    "info": {
+        "_postman_id": "a70206b9-a734-4c42-8ccb-3ea4e2b4a98b",
+        "name": "shorten-url",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+        "description": ""
+    },
+    "item": [
+        {
+            "name": "Create",
+            "request": {
+                "method": "POST",
+                "url": {
+                    "raw": "http://localhost:8800/api/shorten",
+                    "path": [
+                        "api",
+                        "shorten"
+                    ],
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "8800"
+                },
+                "header": [
+                    {
+                        "key": "Accept",
+                        "value": "*/*",
+                        "disabled": true
+                    },
+                    {
+                        "key": "Accept",
+                        "value": "application/json"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    },
+                    "raw": "{\n  \"url\": \"https://jaygaha.com.np\"\n}"
+                }
+            }
+        },
+        {
+            "name": "Get All",
+            "request": {
+                "method": "GET",
+                "url": {
+                    "raw": "http://localhost:8800/api/shorten?page&limit=20",
+                    "query": [
+                        {
+                            "key": "page",
+                            "value": ""
+                        },
+                        {
+                            "key": "limit",
+                            "value": "20"
+                        }
+                    ],
+                    "variable": [],
+                    "path": [
+                        "api",
+                        "shorten"
+                    ],
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "8800"
+                },
+                "header": [
+                    {
+                        "key": "Accept",
+                        "value": "*/*",
+                        "disabled": true
+                    },
+                    {
+                        "key": "Accept",
+                        "value": "application/json"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Detail",
+            "request": {
+                "method": "GET",
+                "url": {
+                    "raw": "http://localhost:8800/api/shorten/buFSdq2x",
+                    "path": [
+                        "api",
+                        "shorten",
+                        "buFSdq2x"
+                    ],
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "8800"
+                },
+                "header": [
+                    {
+                        "key": "Accept",
+                        "value": "*/*",
+                        "disabled": true
+                    },
+                    {
+                        "key": "Accept",
+                        "value": "application/json"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Stats",
+            "request": {
+                "method": "GET",
+                "url": {
+                    "raw": "http://localhost:8800/api/shorten/38k5AAmR/stats",
+                    "path": [
+                        "api",
+                        "shorten",
+                        "38k5AAmR",
+                        "stats"
+                    ],
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "8800"
+                },
+                "header": [
+                    {
+                        "key": "Accept",
+                        "value": "*/*",
+                        "disabled": true
+                    },
+                    {
+                        "key": "Accept",
+                        "value": "application/json"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Update",
+            "request": {
+                "method": "PATCH",
+                "url": {
+                    "raw": "http://localhost:8800/api/shorten/buFSdq2x",
+                    "path": [
+                        "api",
+                        "shorten",
+                        "buFSdq2x"
+                    ],
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "8800"
+                },
+                "header": [
+                    {
+                        "key": "Accept",
+                        "value": "*/*",
+                        "disabled": true
+                    },
+                    {
+                        "key": "Accept",
+                        "value": "application/json"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    },
+                    "raw": "{\n  \"url\": \"https://jaygaha.com.np\"\n}"
+                }
+            }
+        },
+        {
+            "name": "Delete",
+            "request": {
+                "method": "DELETE",
+                "url": {
+                    "raw": "http://localhost:8800/api/shorten/38k5AAmR",
+                    "path": [
+                        "api",
+                        "shorten",
+                        "38k5AAmR"
+                    ],
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "8800"
+                },
+                "header": [
+                    {
+                        "key": "Accept",
+                        "value": "*/*",
+                        "disabled": true
+                    },
+                    {
+                        "key": "Accept",
+                        "value": "application/json"
+                    }
+                ]
+            }
+        }
+    ]
+}

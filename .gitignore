@@ -17,7 +17,7 @@ build/
 vendor/
 
 # Go module files
-go.sum
+# go.sum
 
 # IDE and editor files
 .idea/

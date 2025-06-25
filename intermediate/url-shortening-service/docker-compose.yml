@@ -1,0 +1,54 @@
+services:
+  api-dev:
+    container_name: api-dev
+    build:
+      context: .
+      dockerfile: .infra/Dockerfile
+      target: dev
+    ports:
+      - "8800:8800"
+    volumes:
+      - .:/app
+    environment:
+      - MONGO_URI=mongodb://mongodb:27017/urldb
+      - APP_ENV=development
+    depends_on:
+      - mongodb
+    networks:
+      - app-network
+
+  api-prod:
+    container_name: api-prod
+    build:
+      context: .
+      dockerfile: .infra/Dockerfile
+      target: prod
+    ports:
+      - "8801:8800"
+    environment:
+      - MONGO_URI=mongodb://mongodb:27017/urldb
+      - APP_ENV=production
+    depends_on:
+      - mongodb
+    networks:
+      - app-network
+
+  mongodb:
+    container_name: mongodb
+    image: mongo:8.0
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    environment:
+      - MONGO_INITDB_DATABASE=urldb
+    networks:
+      - app-network
+
+volumes:
+  mongo-data:
+
+networks:
+  app-network:
+    name: url-app-network
+    driver: bridge

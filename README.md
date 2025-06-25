@@ -45,9 +45,12 @@ Feel free to explore the projects and learn more about backend development using
 - [Caching Proxy](./intermediate/caching-proxy-server/README.md)
     - Build a caching server that caches responses from other servers. 
     - [Challenge Details](https://roadmap.sh/projects/caching-server)
-- [https://roadmap.sh/projects/markdown-note-taking-app](./intermediate/markdown-note-app/README.md)
+- [Markdown Note-taking API](./intermediate/markdown-note-app/README.md)
     - Build a note-taking app that uses markdown for formatting. 
     - [Challenge Details](https://roadmap.sh/projects/markdown-note-taking-app)
+- [URL Shortening Service](./intermediate/url-shortening-service/README.md)
+    - Build a URL shortening service that shortens long URLs. 
+    - [Challenge Details](https://roadmap.sh/projects/url-shortening-service)
 
 ## Futher Details about the challenge
 
