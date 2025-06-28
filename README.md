@@ -51,6 +51,9 @@ Feel free to explore the projects and learn more about backend development using
 - [URL Shortening Service](./intermediate/url-shortening-service/README.md)
     - Build a URL shortening service that shortens long URLs. 
     - [Challenge Details](https://roadmap.sh/projects/url-shortening-service)
+- [Broadcast Server](./intermediate/broadcast-server/README.md)
+    - Build a simple WebSocket server for real-time communication.
+    - [Challenge Details](https://roadmap.sh/projects/broadcast-server)
 
 ## Futher Details about the challenge
 
