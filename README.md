@@ -54,10 +54,12 @@ Feel free to explore the projects and learn more about backend development using
 - [Broadcast Server](./intermediate/broadcast-server/README.md)
     - Build a simple WebSocket server for real-time communication.
     - [Challenge Details](https://roadmap.sh/projects/broadcast-server)
+- [Image Processing Service](./intermediate/image-processing-service/README.md)
+    - Build a backend image service with upload, transformations, S3/MongoDB, plus asynchronous processing via in-memory workers and per-user rate limiting on transform requests.
+    - [Challenge Details](https://roadmap.sh/projects/image-processing-service)
 
 ## Futher Details about the challenge
 
 - [roadmap.sh](https://roadmap.sh/backend/projects)
-
 
 Happy coding! 🚀
