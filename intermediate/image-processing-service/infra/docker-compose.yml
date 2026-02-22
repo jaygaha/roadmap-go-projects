@@ -1,0 +1,84 @@
+services:
+  mongodb:
+    container_name: image-processing-mongodb
+    image: mongo:${MONGO_IMAGE:-8}
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME:-root}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD:-root@123}
+      - MONGO_INITDB_DATABASE=${MONGO_INITDB_DATABASE:-image_processing}
+      - MONGO_PORT=${MONGO_PORT:-27017}
+    ports:
+      - ${MONGO_PORT:-27017}:${MONGO_PORT:-27017}
+    volumes:
+      - mongodb_data:/data/db
+      - ./init-scripts/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+    networks:
+      - app-network
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    restart: unless-stopped
+
+  localstack:
+    container_name: image-processing-localstack
+    image: localstack/localstack:${LOCALSTACK_IMAGE:-4.5}
+    environment:
+      - DEBUG=${LOCALSTACK_DEBUG:-0}
+      - SERVICES=${LOCALSTACK_SERVICES:-s3}
+      - DEFAULT_REGION=${AWS_DEFAULT_REGION:-us-east-1}
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID:-localstack}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY:-localstack}
+      - AWS_BUCKET=${AWS_BUCKET:-img-bucket}
+      - DOCKER_HOST=unix:///var/run/docker.sock
+      - DATA_DIR=/var/lib/localstack/data
+    ports:
+      - ${LOCALSTACK_PORT:-4566}:${LOCALSTACK_PORT:-4566}
+    volumes:
+      - "./init-scripts/localstack-init.sh:/etc/localstack/init/ready.d/init-aws.sh"
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - localstack_data:/var/lib/localstack
+    networks:
+      - app-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:4566/_localstack/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    restart: unless-stopped
+    
+  app:
+    container_name: image-processing-app
+    build:
+      context: ..
+      dockerfile: ./infra/builds/Dockerfile
+    environment:
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID:-localstack}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY:-localstack}
+      - AWS_REGION=${AWS_DEFAULT_REGION:-us-east-1}
+      - AWS_BUCKET=${AWS_BUCKET:-img-bucket}
+      - S3_ENDPOINT_URL=http://localstack:4566
+      - MONGODB_URI=mongodb://root:root%40123@mongodb:27017/image_processing?authSource=admin
+      - APP_PORT=${APP_PORT:-8800}
+    ports:
+      - ${APP_PORT:-8800}:${APP_PORT:-8800}
+    depends_on:
+      mongodb:
+        condition: service_healthy
+      localstack:
+        condition: service_healthy
+    networks:
+      - app-network
+    restart: unless-stopped
+
+volumes:
+  mongodb_data:
+  localstack_data:
+
+networks:
+  app-network:
+    name: image-processing-network
+    driver: bridge
