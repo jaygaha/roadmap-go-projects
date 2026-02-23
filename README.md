@@ -57,6 +57,9 @@ Feel free to explore the projects and learn more about backend development using
 - [Image Processing Service](./intermediate/image-processing-service/README.md)
     - Build a backend image service with upload, transformations, S3/MongoDB, plus asynchronous processing via in-memory workers and per-user rate limiting on transform requests.
     - [Challenge Details](https://roadmap.sh/projects/image-processing-service)
+- [Fitness Workout Tracker](./intermediate/fitness-workout-tracker/README.md)
+    - Build a workout tracking API with JWT auth, SQLite persistence, CRUD for workouts, and date-range reports. Includes Swagger docs and basic test coverage.
+    - [Challenge Details](https://roadmap.sh/projects/fitness-workout-tracker)
 
 ## Futher Details about the challenge
 

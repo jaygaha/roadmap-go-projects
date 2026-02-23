@@ -1,0 +1,548 @@
+basePath: /api/v1
+definitions:
+  models.CreateWorkoutRequest:
+    properties:
+      description:
+        type: string
+      exercises:
+        description: The collection
+        items:
+          $ref: '#/definitions/models.WorkoutExerciseRequest'
+        type: array
+      name:
+        type: string
+      scheduled_for:
+        type: string
+    type: object
+  models.Exercise:
+    properties:
+      category:
+        description: e.g., Strength, Cardio, Flexibility
+        type: string
+      created_at:
+        type: string
+      description:
+        type: string
+      id:
+        type: integer
+      muscleGroup:
+        description: e.g., Chest, Legs, Back
+        type: string
+      name:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  models.LoginRequest:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    type: object
+  models.RegisterRequest:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+      username:
+        type: string
+    type: object
+  models.ReportExercise:
+    properties:
+      exercise_id:
+        type: integer
+      reps:
+        type: integer
+      sets:
+        type: integer
+      weight:
+        type: number
+    type: object
+  models.WorkoutExerciseRequest:
+    properties:
+      exercise_id:
+        type: integer
+      notes:
+        type: string
+      reps:
+        type: integer
+      sets:
+        type: integer
+      weight:
+        type: number
+    type: object
+  models.WorkoutExerciseResponse:
+    properties:
+      exercise:
+        $ref: '#/definitions/models.Exercise'
+      exercise_id:
+        type: integer
+      notes:
+        type: string
+      reps:
+        type: integer
+      sets:
+        type: integer
+      weight:
+        type: number
+    type: object
+  models.WorkoutReportItem:
+    properties:
+      exercises:
+        items:
+          $ref: '#/definitions/models.ReportExercise'
+        type: array
+      id:
+        type: integer
+      name:
+        type: string
+      scheduled_for:
+        type: string
+    type: object
+  models.WorkoutResponse:
+    properties:
+      description:
+        type: string
+      exercises:
+        items:
+          $ref: '#/definitions/models.WorkoutExerciseResponse'
+        type: array
+      id:
+        type: integer
+      name:
+        type: string
+      scheduled_for:
+        type: string
+    type: object
+host: localhost:8800
+info:
+  contact:
+    email: jaygaha@gmail.com
+    name: API Support
+    url: https://jaygaha.com.np
+  description: This is a sample server fitness workout tracker server.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Fitness Workout Tracker API
+  version: "1.0"
+paths:
+  /auth/login:
+    post:
+      consumes:
+      - application/json
+      description: Login a user with email and password
+      operationId: loginUser
+      parameters:
+      - description: Login Request
+        in: body
+        name: loginRequest
+        required: true
+        schema:
+          $ref: '#/definitions/models.LoginRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: JWT token
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "400":
+          description: Invalid request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "401":
+          description: Invalid credentials
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "422":
+          description: Email and password are required
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Login a user
+      tags:
+      - auth
+  /auth/register:
+    post:
+      consumes:
+      - application/json
+      description: Register a new user with username, email, and password
+      operationId: registerUser
+      parameters:
+      - description: Register Request
+        in: body
+        name: registerRequest
+        required: true
+        schema:
+          $ref: '#/definitions/models.RegisterRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: User registered successfully. Please log in to continue.
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "400":
+          description: Invalid request payload
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "422":
+          description: Username or email already exists
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Register a new user
+      tags:
+      - auth
+  /exercises:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve a list of all available exercises
+      operationId: getExercises
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: List of exercises
+          schema:
+            items:
+              $ref: '#/definitions/models.Exercise'
+            type: array
+        "401":
+          description: Unauthorized
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      security:
+      - BearerToken: []
+      - BearerAuth: []
+      summary: Get all exercises
+      tags:
+      - exercises
+  /workouts:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve a list of all workouts for the authenticated user
+      operationId: listWorkouts
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: List of workouts
+          schema:
+            items:
+              $ref: '#/definitions/models.WorkoutResponse'
+            type: array
+        "401":
+          description: Unauthorized
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      security:
+      - BearerAuth: []
+      summary: List all workouts
+      tags:
+      - workouts
+    post:
+      consumes:
+      - application/json
+      description: Create a new workout for the authenticated user
+      operationId: createWorkout
+      parameters:
+      - description: Create Workout Request
+        in: body
+        name: createWorkoutRequest
+        required: true
+        schema:
+          $ref: '#/definitions/models.CreateWorkoutRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Workout created successfully
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "400":
+          description: Invalid request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "401":
+          description: Unauthorized
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "422":
+          description: Validation errors
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Create a new workout
+      tags:
+      - workouts
+  /workouts/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a specific workout for the authenticated user
+      operationId: deleteWorkout
+      parameters:
+      - description: Workout ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: Workout deleted successfully
+          schema:
+            type: string
+        "400":
+          description: Invalid request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "401":
+          description: Unauthorized
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "404":
+          description: Workout not found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Delete a workout
+      tags:
+      - workouts
+    get:
+      consumes:
+      - application/json
+      description: Retrieve the details of a specific workout for the authenticated
+        user
+      operationId: getWorkout
+      parameters:
+      - description: Workout ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Workout details
+          schema:
+            $ref: '#/definitions/models.WorkoutResponse'
+        "400":
+          description: Invalid request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "401":
+          description: Unauthorized
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "404":
+          description: Workout not found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Get a workout
+      tags:
+      - workouts
+    put:
+      consumes:
+      - application/json
+      description: Update the details of a specific workout for the authenticated
+        user
+      operationId: updateWorkout
+      parameters:
+      - description: Workout ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Update Workout Request
+        in: body
+        name: updateWorkoutRequest
+        required: true
+        schema:
+          $ref: '#/definitions/models.CreateWorkoutRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Workout updated successfully
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "400":
+          description: Invalid request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "401":
+          description: Unauthorized
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "422":
+          description: Validation errors
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Update a workout
+      tags:
+      - workouts
+  /workouts/reports:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve a report of workouts for the authenticated user within
+        a specified date range
+      operationId: getWorkoutReport
+      parameters:
+      - description: Start Date (YYYY-MM-DD)
+        in: query
+        name: start_date
+        required: true
+        type: string
+      - description: End Date (YYYY-MM-DD)
+        in: query
+        name: end_date
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Workout report
+          schema:
+            items:
+              $ref: '#/definitions/models.WorkoutReportItem'
+            type: array
+        "400":
+          description: Invalid request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "401":
+          description: Unauthorized
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Get workout report
+      tags:
+      - workouts
+securityDefinitions:
+  BearerAuth:
+    description: 'Provide JWT token as: Bearer <token>'
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
