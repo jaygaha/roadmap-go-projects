@@ -446,3 +446,9 @@ make logs-mongo
 ## License
 
 This project is licensed under the MIT License.
+
+
+## Contributing
+
+- This project is part of the [roadmap.sh](https://roadmap.sh/projects/image-processing-service) backend projects series.
+- Created by [jaygaha](https://github.com/jaygaha)
