@@ -60,6 +60,10 @@ Feel free to explore the projects and learn more about backend development using
 - [Fitness Workout Tracker](./intermediate/fitness-workout-tracker/README.md)
     - Build a workout tracking API with JWT auth, SQLite persistence, CRUD for workouts, and date-range reports. Includes Swagger docs and basic test coverage.
     - [Challenge Details](https://roadmap.sh/projects/fitness-workout-tracker)
+- [E‑Commerce API Service](./intermediate/e-commerce-api-service/README.md)
+    - Layered REST API with JWT auth, products, cart, atomic checkout, SQLite, and Stripe PaymentIntent integration.
+    - [Challenge Details](https://roadmap.sh/projects/e-commerce-api-service)
+
 
 ## Futher Details about the challenge
 
