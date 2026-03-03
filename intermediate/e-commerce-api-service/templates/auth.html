@@ -1,0 +1,103 @@
+{{define "title"}}Sign In{{end}}
+
+{{define "content"}}
+<div class="auth-container">
+    <div class="auth-box">
+        <div class="auth-header">
+            <div class="auth-logo">📦</div>
+            <h1 class="text-2xl font-bold">Goods &amp; Co.</h1>
+            <p class="text-sm text-secondary" style="margin-top:0.25rem">
+                Thoughtfully curated essentials
+            </p>
+        </div>
+
+        {{/* ── Tab Switcher ── */}}
+        <div class="auth-tabs">
+            <button class="auth-tab active" id="tab-login"
+                    onclick="switchTab('login')">Sign In</button>
+            <button class="auth-tab" id="tab-register"
+                    onclick="switchTab('register')">Sign Up</button>
+        </div>
+
+        {{/* ── Login Form (calls API, then cookie bridge) ── */}}
+        <form id="form-login">
+            <div class="input-group">
+                <label class="input-label">Email</label>
+                <input type="email" name="email" id="login-email" class="input"
+                       placeholder="you@example.com" required>
+            </div>
+            <div class="input-group">
+                <label class="input-label">Password</label>
+                <input type="password" name="password" id="login-password" class="input"
+                       placeholder="••••••••" required>
+            </div>
+            <button type="submit" class="btn btn-primary btn-lg btn-full">
+                <svg width="16" height="16"><use href="#i-login"/></svg> Sign In
+            </button>
+        </form>
+
+        {{/* ── Register Form (hidden by default) ── */}}
+        <form id="form-register" class="hidden">
+            <div class="input-group">
+                <label class="input-label">Email</label>
+                <input type="email" name="email" id="register-email" class="input"
+                       placeholder="you@example.com" required>
+            </div>
+            <div class="input-group">
+                <label class="input-label">Password</label>
+                <input type="password" name="password" id="register-password" class="input"
+                       placeholder="Min 8 characters" required minlength="8">
+            </div>
+            <button type="submit" class="btn btn-primary btn-lg btn-full">
+                Create Account
+            </button>
+        </form>
+
+        <a href="/" class="btn btn-ghost btn-full mt-4" style="margin-top:1rem">
+            Browse as guest →
+        </a>
+    </div>
+</div>
+
+<script>
+    function switchTab(tab) {
+        const isLogin = tab === 'login';
+        document.getElementById('tab-login').classList.toggle('active', isLogin);
+        document.getElementById('tab-register').classList.toggle('active', !isLogin);
+        document.getElementById('form-login').classList.toggle('hidden', !isLogin);
+        document.getElementById('form-register').classList.toggle('hidden', isLogin);
+    }
+
+    document.getElementById('form-login').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const email = document.getElementById('login-email').value;
+        const password = document.getElementById('login-password').value;
+        try {
+            const data = await apiFetch('/auth/login', {
+                method: 'POST',
+                body: JSON.stringify({ email, password })
+            });
+            setToken(data.token);
+            window.location.href = '/?flash=Welcome+back!';
+        } catch (err) {
+            alert(err.message);
+        }
+    });
+
+    document.getElementById('form-register').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const email = document.getElementById('register-email').value;
+        const password = document.getElementById('register-password').value;
+        try {
+            const data = await apiFetch('/auth/register', {
+                method: 'POST',
+                body: JSON.stringify({ email, password })
+            });
+            setToken(data.token);
+            window.location.href = '/?flash=Account+created!';
+        } catch (err) {
+            alert(err.message);
+        }
+    });
+</script>
+{{end}}

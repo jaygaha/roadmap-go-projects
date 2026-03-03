@@ -1,0 +1,101 @@
+{{define "title"}}Admin{{end}}
+
+{{define "content"}}
+<nav class="nav">
+    <div class="nav-inner">
+        <a href="/" class="nav-brand">
+            <div class="nav-brand-icon"><svg width="14" height="14"><use href="#i-package"/></svg></div>
+            <span class="nav-brand-text hide-mobile">Goods &amp; Co.</span>
+        </a>
+        <div class="nav-links">
+            <a href="/" class="nav-link"><svg width="14" height="14"><use href="#i-tag"/></svg><span class="hide-mobile">Shop</span></a>
+            <a href="/cart" class="nav-link"><svg width="14" height="14"><use href="#i-cart"/></svg><span class="hide-mobile">Cart</span>{{if gt .CartCount 0}}<span class="nav-badge">{{.CartCount}}</span>{{end}}</a>
+            <a href="/orders" class="nav-link"><svg width="14" height="14"><use href="#i-orders"/></svg><span class="hide-mobile">Orders</span></a>
+            <a href="/admin" class="nav-link active" id="nav-admin" style="display:none"><svg width="14" height="14"><use href="#i-shield"/></svg><span class="hide-mobile">Admin</span></a>
+            <a href="/auth" class="nav-link" id="nav-logout" onclick="clearToken()" style="display:none"><svg width="14" height="14"><use href="#i-logout"/></svg><span class="hide-mobile">Sign Out</span></a>
+            <a href="/auth" class="btn btn-primary btn-sm" id="nav-login" style="display:none"><svg width="13" height="13"><use href="#i-login"/></svg> Sign In</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container-lg">
+    <div class="flex items-center gap-2 mb-6">
+        <svg width="18" height="18" style="color: var(--c-text-muted)"><use href="#i-shield"/></svg>
+        <h2 class="text-xl font-bold">Admin Panel</h2>
+    </div>
+
+    {{/* ── Add Product Form ── */}}
+    <div class="surface mb-6" style="margin-bottom: 2rem;">
+        <h3 class="text-sm font-semibold mb-4" style="color: var(--c-text-secondary); margin-bottom: 1rem;">
+            Add New Product
+        </h3>
+        <form method="POST" action="/admin/products/create">
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;"
+                 class="grid-admin">
+                <div class="input-group">
+                    <label class="input-label">Name</label>
+                    <input type="text" name="name" class="input"
+                           placeholder="Product name" required>
+                </div>
+                <div class="input-group">
+                    <label class="input-label">Price ($)</label>
+                    <input type="number" name="price" step="0.01" class="input"
+                           placeholder="29.99" required>
+                </div>
+                <div class="input-group">
+                    <label class="input-label">Stock</label>
+                    <input type="number" name="stock" class="input"
+                           placeholder="10" required>
+                </div>
+                <div class="input-group">
+                    <label class="input-label">Image URL (optional)</label>
+                    <input type="text" name="image_url" class="input"
+                           placeholder="https://...">
+                </div>
+            </div>
+            <div class="input-group">
+                <label class="input-label">Description</label>
+                <input type="text" name="description" class="input"
+                       placeholder="A short description of the product">
+            </div>
+            <button type="submit" class="btn btn-primary">+ Add Product</button>
+        </form>
+    </div>
+
+    {{/* ── Product List ── */}}
+    {{if .Products}}
+    <h3 class="text-sm font-semibold mb-4" style="color: var(--c-text-secondary); margin-bottom: 1rem;">
+        All Products ({{len .Products}})
+    </h3>
+    <div class="flex flex-col gap-2">
+        {{range .Products}}
+        <div class="card-flat flex items-center gap-4">
+            <div class="product-img-sm" style="background: {{productGradient .ID}}">
+                <span class="product-img-icon">{{productIcon .ID}}</span>
+            </div>
+            <div class="flex-1">
+                <h4 class="text-sm font-semibold truncate">{{.Name}}</h4>
+                <p class="text-xs text-secondary">
+                    {{formatPrice .Price}} · {{.Stock}} in stock
+                </p>
+            </div>
+            <a href="/products/{{.ID}}" class="btn btn-ghost btn-sm">View</a>
+            <form method="POST" action="/admin/products/delete"
+                  onsubmit="return confirm('Delete this product?')">
+                <input type="hidden" name="product_id" value="{{.ID}}">
+                <button type="submit" class="btn btn-danger btn-sm">
+                    <svg width="12" height="12"><use href="#i-trash"/></svg>
+                </button>
+            </form>
+        </div>
+        {{end}}
+    </div>
+    {{else}}
+    <div class="empty-state">
+        <div class="empty-state-icon">📦</div>
+        <h3>No products yet</h3>
+        <p>Add your first product using the form above.</p>
+    </div>
+    {{end}}
+</div>
+{{end}}

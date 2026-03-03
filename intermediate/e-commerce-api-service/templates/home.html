@@ -1,0 +1,81 @@
+{{define "title"}}Shop{{end}}
+
+{{define "content"}}
+{{/* ── Nav ─────────────────────────── */}}
+<nav class="nav">
+    <div class="nav-inner">
+        <a href="/" class="nav-brand">
+            <div class="nav-brand-icon"><svg width="14" height="14"><use href="#i-package"/></svg></div>
+            <span class="nav-brand-text hide-mobile">Goods &amp; Co.</span>
+        </a>
+        <div class="nav-links">
+            <a href="/" class="nav-link active">
+                <svg width="14" height="14"><use href="#i-tag"/></svg>
+                <span class="hide-mobile">Shop</span>
+            </a>
+            <a href="/cart" class="nav-link">
+                <svg width="14" height="14"><use href="#i-cart"/></svg>
+                <span class="hide-mobile">Cart</span>
+            </a>
+            <a href="/orders" class="nav-link">
+                <svg width="14" height="14"><use href="#i-orders"/></svg>
+                <span class="hide-mobile">Orders</span>
+            </a>
+            <a href="/admin" class="nav-link" id="nav-admin" style="display:none">
+                <svg width="14" height="14"><use href="#i-shield"/></svg>
+                <span class="hide-mobile">Admin</span>
+            </a>
+            <a href="/auth" class="nav-link" id="nav-logout" onclick="clearToken()" style="display:none">
+                <svg width="14" height="14"><use href="#i-logout"/></svg>
+                <span class="hide-mobile">Sign Out</span>
+            </a>
+            <a href="/auth" class="btn btn-primary btn-sm" id="nav-login" style="display:none">
+                <svg width="13" height="13"><use href="#i-login"/></svg> Sign In
+            </a>
+        </div>
+    </div>
+</nav>
+
+{{/* ── Search ──────────────────────── */}}
+<div class="container">
+    <form method="GET" action="/" class="search-wrap" onsubmit="event.preventDefault(); loadProducts();">
+        <span class="search-icon"><svg width="16" height="16"><use href="#i-search"/></svg></span>
+        <input type="text" name="search" id="search" class="search-input" placeholder="Search products..." autocomplete="off">
+    </form>
+
+    <div id="grid" class="grid grid-products"></div>
+    <div id="empty" class="empty-state" style="display:none">
+        <div class="empty-state-icon">📦</div>
+        <h3>No products found</h3>
+        <p>Try a different search term or check back later.</p>
+    </div>
+</div>
+<script>
+  function fmt(c){return '$'+(c/100).toFixed(2)}
+  async function loadProducts(){
+    const q = document.getElementById('search').value || '';
+    const params = new URLSearchParams(); if(q) params.set('q', q);
+    const data = await apiFetch('/products'+(params.toString()?('?'+params.toString()):''), {method:'GET'});
+    const grid = document.getElementById('grid'); const empty = document.getElementById('empty');
+    grid.innerHTML='';
+    if(!data || data.length===0){ empty.style.display='block'; return; } else { empty.style.display='none'; }
+    data.forEach(p=>{
+      const a=document.createElement('a'); a.href='/products/'+p.id; a.className='card'; a.style.display='block';
+      a.innerHTML = `
+        <div class="product-img" style="background: var(--c-accent-bg)"><span class="product-img-icon">◎</span></div>
+        <div class="card-body">
+          <h3 class="text-sm font-semibold truncate">${p.name}</h3>
+          <p class="text-xs text-secondary truncate mt-2" style="margin-top:0.25rem">${p.description||''}</p>
+          <div class="flex items-center justify-between" style="margin-top:0.75rem">
+            <span class="text-base font-bold">${fmt(p.price)}</span>
+            ${p.stock===0?'<span class="badge badge-warning">Sold out</span>':''}
+          </div>
+        </div>
+      `;
+      grid.appendChild(a);
+    });
+  }
+  loadProducts();
+  document.getElementById('search').addEventListener('input', ()=>{ clearTimeout(window._t); window._t=setTimeout(loadProducts,300) });
+</script>
+{{end}}

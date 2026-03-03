@@ -18,6 +18,15 @@ func NewAuthHandler(svc *services.AuthService) *AuthHandler {
 }
 
 // Register handles user registration requests.
+// @Summary      Register a new user
+// @Description  Create a user account and return a JWT
+// @Tags         Auth
+// @Accept       json
+// @Produce      json
+// @Param        payload  body      models.UserRegisterRequest  true  "User credentials"
+// @Success      201      {object}  models.AuthResponse
+// @Failure      400      {object}  map[string]string
+// @Router       /auth/register [post]
 func (h *AuthHandler) Register(w http.ResponseWriter, r *http.Request) {
 	var req models.UserRegisterRequest
 	if err := readJSON(r, &req); err != nil {
@@ -33,6 +42,16 @@ func (h *AuthHandler) Register(w http.ResponseWriter, r *http.Request) {
 	writeJSON(w, http.StatusCreated, resp)
 }
 
+// @Summary      Login
+// @Description  Authenticate a user and return a JWT
+// @Tags         Auth
+// @Accept       json
+// @Produce      json
+// @Param        payload  body      models.UserLoginRequest  true  "User credentials"
+// @Success      200      {object}  models.AuthResponse
+// @Failure      400      {object}  map[string]string
+// @Failure      401      {object}  map[string]string
+// @Router       /auth/login [post]
 func (h *AuthHandler) Login(w http.ResponseWriter, r *http.Request) {
 	var req models.UserLoginRequest
 	if err := readJSON(r, &req); err != nil {

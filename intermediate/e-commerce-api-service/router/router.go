@@ -3,6 +3,8 @@ package router
 import (
 	"github.com/go-chi/chi/v5"
 	chiMw "github.com/go-chi/chi/v5/middleware"
+	_ "github.com/jaygaha/roadmap-go-projects/intermediate/e-commerce-api-service/docs"
+	httpSwagger "github.com/swaggo/http-swagger"
 
 	"github.com/jaygaha/roadmap-go-projects/intermediate/e-commerce-api-service/handlers"
 	"github.com/jaygaha/roadmap-go-projects/intermediate/e-commerce-api-service/middleware"
@@ -15,6 +17,7 @@ func New(
 	productH *handlers.ProductHandler,
 	cartH *handlers.CartHandler,
 	orderH *handlers.OrderHandler,
+	pageH *handlers.PageHandler,
 ) *chi.Mux {
 	r := chi.NewRouter()
 
@@ -23,6 +26,20 @@ func New(
 	r.Use(chiMw.RequestID)    // X-Request-Id header
 	r.Use(middleware.Logging) // structured request logging
 
+	// Swagger UI
+	r.Get("/swagger/*", httpSwagger.Handler())
+
+	// ── Server-Rendered Pages (HTML)
+	r.Group(func(r chi.Router) {
+		r.Get("/", pageH.Home)
+		r.Get("/products/{id}", pageH.ProductDetail)
+		r.Get("/cart", pageH.Cart)
+		r.Get("/orders", pageH.Orders)
+		r.Get("/auth", pageH.AuthPage)
+		r.Get("/admin", pageH.AdminPage)
+	})
+
+	// ── JSON API
 	r.Route("/api/v1", func(r chi.Router) {
 		// ── Public routes
 		r.Post("/auth/register", authH.Register)

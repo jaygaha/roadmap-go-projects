@@ -1,8 +1,11 @@
 package handlers
 
 import (
+	"bytes"
 	"encoding/json"
 	"errors"
+	"io"
+	"log"
 	"net/http"
 	"strconv"
 
@@ -19,10 +22,20 @@ func writeJSON(w http.ResponseWriter, status int, v any) {
 }
 
 func readJSON(r *http.Request, v any) error {
-	dec := json.NewDecoder(r.Body)
+	bodyBytes, err := io.ReadAll(r.Body)
+	if err != nil {
+		log.Printf("[JSON] read body error: %v", err)
+		return err
+	}
+	log.Printf("[JSON] raw body: %s", string(bodyBytes))
+	dec := json.NewDecoder(bytes.NewReader(bodyBytes))
 	dec.DisallowUnknownFields()
 
-	return dec.Decode(v)
+	if err := dec.Decode(v); err != nil {
+		log.Printf("[JSON] decode error: %v", err)
+		return err
+	}
+	return nil
 }
 
 // handleError maps domain errors to HTTP status codes.
