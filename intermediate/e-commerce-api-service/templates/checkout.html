@@ -1,0 +1,42 @@
+{{define "title"}}Order Confirmed{{end}}
+
+{{define "content"}}
+<nav class="nav">
+    <div class="nav-inner">
+        <a href="/" class="nav-brand">
+            <div class="nav-brand-icon"><svg width="14" height="14"><use href="#i-package"/></svg></div>
+            <span class="nav-brand-text hide-mobile">Goods &amp; Co.</span>
+        </a>
+        <div class="nav-links">
+            <a href="/" class="nav-link"><svg width="14" height="14"><use href="#i-tag"/></svg><span class="hide-mobile">Shop</span></a>
+            <a href="/cart" class="nav-link"><svg width="14" height="14"><use href="#i-cart"/></svg><span class="hide-mobile">Cart</span></a>
+            <a href="/orders" class="nav-link"><svg width="14" height="14"><use href="#i-orders"/></svg><span class="hide-mobile">Orders</span></a>
+            <a href="/admin" class="nav-link" id="nav-admin" style="display:none"><svg width="14" height="14"><use href="#i-shield"/></svg><span class="hide-mobile">Admin</span></a>
+            <a href="/auth" class="nav-link" id="nav-logout" onclick="clearToken()" style="display:none"><svg width="14" height="14"><use href="#i-logout"/></svg><span class="hide-mobile">Sign Out</span></a>
+            <a href="/auth" class="btn btn-primary btn-sm" id="nav-login" style="display:none"><svg width="13" height="13"><use href="#i-login"/></svg> Sign In</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container-sm" style="padding-top: 5rem;">
+    <div class="text-center">
+        <div class="success-icon">✓</div>
+        <h2 class="text-2xl font-bold mb-2">Order Confirmed!</h2>
+
+        {{if .Checkout}}
+        <p class="text-secondary mb-2">Order #{{.Checkout.OrderID}}</p>
+        <p class="text-xs text-muted mb-6" style="margin-bottom: 2rem;">
+            Payment ID: {{.Checkout.StripePaymentID}}
+        </p>
+        {{end}}
+
+        <div class="flex items-center justify-between gap-3" style="justify-content:center">
+            <a href="/orders" class="btn btn-secondary">
+                <svg width="16" height="16"><use href="#i-orders"/></svg>
+                View Orders
+            </a>
+            <a href="/" class="btn btn-primary">Continue Shopping</a>
+        </div>
+    </div>
+</div>
+{{end}}

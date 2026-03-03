@@ -1,0 +1,106 @@
+{{define "title"}}Product{{end}}
+
+{{define "content"}}
+<nav class="nav">
+    <div class="nav-inner">
+        <a href="/" class="nav-brand">
+            <div class="nav-brand-icon"><svg width="14" height="14"><use href="#i-package"/></svg></div>
+            <span class="nav-brand-text hide-mobile">Goods &amp; Co.</span>
+        </a>
+        <div class="nav-links">
+            <a href="/" class="nav-link"><svg width="14" height="14"><use href="#i-tag"/></svg><span class="hide-mobile">Shop</span></a>
+            <a href="/cart" class="nav-link"><svg width="14" height="14"><use href="#i-cart"/></svg><span class="hide-mobile">Cart</span>{{if gt .CartCount 0}}<span class="nav-badge">{{.CartCount}}</span>{{end}}</a>
+            <a href="/orders" class="nav-link"><svg width="14" height="14"><use href="#i-orders"/></svg><span class="hide-mobile">Orders</span></a>
+            <a href="/admin" class="nav-link" id="nav-admin" style="display:none"><svg width="14" height="14"><use href="#i-shield"/></svg><span class="hide-mobile">Admin</span></a>
+            <a href="/auth" class="nav-link" id="nav-logout" onclick="clearToken()" style="display:none"><svg width="14" height="14"><use href="#i-logout"/></svg><span class="hide-mobile">Sign Out</span></a>
+            <a href="/auth" class="btn btn-primary btn-sm" id="nav-login" style="display:none"><svg width="13" height="13"><use href="#i-login"/></svg> Sign In</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container-md">
+    <a href="/" class="flex items-center gap-2 text-sm text-secondary mb-6" style="margin-bottom:1.5rem">
+        <svg width="14" height="14"><use href="#i-arrow-left"/></svg> Back to shop
+    </a>
+
+    <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: start;">
+        {{/* ── Image ──────── */}}
+            <div class="product-img-lg" id="prod-img" style="background: var(--c-accent-bg); border-radius: var(--radius-xl); aspect-ratio: 1;">
+                <span class="product-img-icon">◎</span>
+        </div>
+
+        {{/* ── Details ────── */}}
+        <div>
+            <h1 class="text-xl font-bold" id="prod-name"></h1>
+            <p class="text-2xl font-bold" id="prod-price" style="margin-top:0.5rem"></p>
+            <p class="text-sm text-secondary" id="prod-desc" style="margin-top:1rem; line-height: 1.7;"></p>
+
+            <div style="margin-top:1rem">
+                <span class="badge" id="stock-badge"></span>
+            </div>
+
+            <form id="add-form" style="margin-top: 1.5rem;">
+                <div class="flex items-center gap-4">
+                    <div class="qty-control">
+                        <button type="button" class="qty-btn" onclick="updateQty(-1)">−</button>
+                        <span class="qty-value" id="qty-display">1</span>
+                        <button type="button" class="qty-btn" onclick="updateQty(1)">+</button>
+                    </div>
+                    <input type="hidden" id="qty-input" value="1">
+                    <button type="submit" class="btn btn-primary btn-lg flex-1"
+                            id="add-btn">
+                        <svg width="16" height="16"><use href="#i-cart"/></svg>
+                        Add to Cart — <span id="total-price">$0.00</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    function fmt(c){return '$'+(c/100).toFixed(2)}
+    const pid = parseInt(location.pathname.split('/').pop(),10);
+    let price=0, maxStock=0;
+    async function loadProduct(){
+      const p = await apiFetch('/products/'+pid, {method:'GET'});
+      document.getElementById('prod-name').textContent = p.name;
+      document.getElementById('prod-price').textContent = fmt(p.price);
+      document.getElementById('prod-desc').textContent = p.description || '';
+      price = p.price; maxStock = p.stock;
+      document.getElementById('total-price').textContent = fmt(price);
+      const badge = document.getElementById('stock-badge');
+      if(p.stock===0){ badge.className='badge badge-warning'; badge.textContent='Out of stock'; document.getElementById('add-btn').disabled=true; document.getElementById('add-btn').style.opacity='0.4'; }
+      else if(p.stock<=5){ badge.className='badge badge-warning'; badge.textContent='Only '+p.stock+' in stock'; }
+      else { badge.className='badge badge-success'; badge.textContent=p.stock+' in stock'; }
+    }
+    function updateQty(delta) {
+        const input = document.getElementById('qty-input');
+        const display = document.getElementById('qty-display');
+        const priceEl = document.getElementById('total-price');
+        let qty = parseInt(input.value) + delta;
+        if (qty < 1) qty = 1;
+        if (qty > maxStock) qty = maxStock;
+        input.value = qty;
+        display.textContent = qty;
+        priceEl.textContent = fmt(price * qty);
+    }
+    document.getElementById('add-form').addEventListener('submit', async (e)=>{
+      e.preventDefault();
+      if(!getToken()){ window.location.href='/auth'; return; }
+      const qty = parseInt(document.getElementById('qty-input').value,10) || 1;
+      try{
+        await apiFetch('/cart/items',{method:'POST', body: JSON.stringify({product_id: pid, quantity: qty})});
+        window.location.href='/cart';
+      }catch(err){ alert(err.message) }
+    });
+    loadProduct();
+</script>
+
+<style>
+    @media (max-width: 640px) {
+        .container-md > div[style*="grid-template-columns"] {
+            grid-template-columns: 1fr !important;
+        }
+    }
+</style>
+{{end}}

@@ -1,0 +1,60 @@
+{{define "title"}}Orders{{end}}
+
+{{define "content"}}
+<nav class="nav">
+    <div class="nav-inner">
+        <a href="/" class="nav-brand">
+            <div class="nav-brand-icon"><svg width="14" height="14"><use href="#i-package"/></svg></div>
+            <span class="nav-brand-text hide-mobile">Goods &amp; Co.</span>
+        </a>
+        <div class="nav-links">
+            <a href="/" class="nav-link"><svg width="14" height="14"><use href="#i-tag"/></svg><span class="hide-mobile">Shop</span></a>
+            <a href="/cart" class="nav-link"><svg width="14" height="14"><use href="#i-cart"/></svg><span class="hide-mobile">Cart</span></a>
+            <a href="/orders" class="nav-link active"><svg width="14" height="14"><use href="#i-orders"/></svg><span class="hide-mobile">Orders</span></a>
+            <a href="/admin" class="nav-link" id="nav-admin" style="display:none"><svg width="14" height="14"><use href="#i-shield"/></svg><span class="hide-mobile">Admin</span></a>
+            <a href="/auth" class="nav-link" id="nav-logout" onclick="clearToken()" style="display:none"><svg width="14" height="14"><use href="#i-logout"/></svg><span class="hide-mobile">Sign Out</span></a>
+            <a href="/auth" class="btn btn-primary btn-sm" id="nav-login" style="display:none"><svg width="13" height="13"><use href="#i-login"/></svg> Sign In</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container-md">
+    <h2 class="text-xl font-bold mb-6">Your Orders</h2>
+    <div id="orders-root" class="flex flex-col gap-3"></div>
+    <div id="orders-empty" class="empty-state" style="display:none">
+        <div class="empty-state-icon">📋</div>
+        <h3>No orders yet</h3>
+        <p>Your order history will appear here.</p>
+        <a href="/" class="btn btn-primary">Start Shopping</a>
+    </div>
+</div>
+<script>
+  function fmt(c){return '$'+(c/100).toFixed(2)}
+  function requireAuth(){ if(!getToken()){ window.location.href='/auth'; return false } return true }
+  async function loadOrders(){
+    if(!requireAuth()) return;
+    const data = await apiFetch('/orders', {method:'GET'});
+    const root = document.getElementById('orders-root');
+    const empty = document.getElementById('orders-empty');
+    root.innerHTML='';
+    if(!data || data.length===0){ empty.style.display='block'; return; } else { empty.style.display='none'; }
+    data.forEach(o=>{
+      const div=document.createElement('div'); div.className='card-flat';
+      const badgeClass = o.status==='paid'?'badge-success':(o.status==='pending'?'badge-warning':'badge-default');
+      const dt = new Date(o.created_at).toLocaleDateString();
+      div.innerHTML = `
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-sm font-semibold">Order #${o.id}</span>
+          <span class="badge ${badgeClass}">${o.status}</span>
+        </div>
+        <div class="flex items-center justify-between">
+          <span class="text-xs text-muted">${dt}</span>
+          <span class="text-base font-bold">${fmt(o.total)}</span>
+        </div>
+      `;
+      root.appendChild(div);
+    });
+  }
+  loadOrders();
+</script>
+{{end}}

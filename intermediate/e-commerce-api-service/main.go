@@ -1,3 +1,14 @@
+// E-Commerce API Service
+//
+// @title           E-Commerce API Service
+// @version         1.0
+// @description     Layered REST API for auth, products, cart, checkout, and orders.
+// @BasePath        /api/v1
+//
+// @securityDefinitions.apikey BearerAuth
+// @in header
+// @name Authorization
+// @description Type "Bearer {token}" to authenticate.
 package main
 
 import (
@@ -10,6 +21,7 @@ import (
 	"github.com/jaygaha/roadmap-go-projects/intermediate/e-commerce-api-service/repository"
 	"github.com/jaygaha/roadmap-go-projects/intermediate/e-commerce-api-service/router"
 	"github.com/jaygaha/roadmap-go-projects/intermediate/e-commerce-api-service/services"
+	"github.com/jaygaha/roadmap-go-projects/intermediate/e-commerce-api-service/docs"
 )
 
 func main() {
@@ -44,13 +56,24 @@ func main() {
 	cartH := handlers.NewCartHandler(cartSvc)
 	orderH := handlers.NewOrderHandler(orderSvc)
 
+	// Page Handler (HTML templates)
+	pageH := handlers.NewPageHandler("templates", productSvc, cartSvc, orderSvc, authSvc)
+
 	// 4. Seed admin user if not exists
 	database.SeedAdmin(userRepo, cfg.AdminEmail, cfg.AdminPassword)
 
 	// 5. Build router and start server
-	r := router.New(authSvc, authH, productH, cartH, orderH)
+	// Configure swagger metadata
+	docs.SwaggerInfo.Title = "E-Commerce API Service"
+	docs.SwaggerInfo.Version = "1.0"
+	docs.SwaggerInfo.BasePath = "/api/v1"
+	docs.SwaggerInfo.Host = "localhost:" + cfg.Port
+
+	r := router.New(authSvc, authH, productH, cartH, orderH, pageH)
 
 	log.Printf("[SERVER] Starting on :%s", cfg.Port)
+	log.Printf("[SERVER] Open http://localhost:%s in your browser", cfg.Port)
+
 	if err := http.ListenAndServe(":"+cfg.Port, r); err != nil {
 		log.Fatalf("Server failed: %v", err)
 	}

@@ -2,6 +2,7 @@ package services
 
 import (
 	"fmt"
+	"log"
 	"time"
 
 	"github.com/golang-jwt/jwt"
@@ -51,6 +52,7 @@ func (s *AuthService) Register(req models.UserRegisterRequest) (*models.AuthResp
 // Login logs in a user
 func (s *AuthService) Login(req models.UserLoginRequest) (*models.AuthResponse, error) {
 	user, err := s.userRepo.FindByEmail(req.Email)
+	log.Printf("[SVC] Login user: %v", user)
 	if err != nil {
 		return nil, fmt.Errorf("%w: invalid credentials", models.ErrUnauthorized)
 	}
