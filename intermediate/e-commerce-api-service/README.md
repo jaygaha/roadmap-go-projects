@@ -195,5 +195,5 @@ Response includes client_secret and stripe_payment_id.
 
 ## Acknowledgments
 
-- Part of the Go programming language learning roadmap projects
+- Part of the Go programming language learning [roadmap.sh](https://roadmap.sh/projects/ecommerce-api) projects
 - Created by [jaygaha](https://github.com/jaygaha)
