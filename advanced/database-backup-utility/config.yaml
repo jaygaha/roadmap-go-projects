@@ -1,0 +1,50 @@
+databases:
+  - name: "mydb_postgres"
+    type: "postgres"
+    host: "localhost"
+    user: "admin"
+    password: "secret"
+    port: 5432
+  - name: "mydb_mysql"
+    type: "mysql"
+    host: "localhost"
+    user: "user_root"
+    password: "Iam@passworD"
+    port: 33059
+  - name: "mydb_mongo"
+    type: "mongodb"
+    host: "localhost"
+    port: 27017
+    user: "admin"
+    password: "secret"
+    auth_db: "admin"
+  - name: "mydb_sqlite"
+    type: "sqlite"
+    host: "./data/app.db" # SQLite file path goes in 'host'
+
+backup:
+  type: "full" # "full", "incremental", or "differential"
+  path: "./backups"
+  retain: 5
+  compress: true
+  compression_level: 6
+
+storage:
+  type: "local" # "local", "s3", or "gcs"
+  path: "./backups"
+  # bucket: "my-backup-bucket"
+  # region: "us-east-1"
+  # project: "my-gcp-project"
+  retain: 5
+
+notification:
+  slack:
+    enabled: false
+    webhook_url: "https://hooks.slack.com/services/SECURITY_TOKEN/CHANNEL_ID/WEBHOOK_TOKEN"
+    on_success: true
+    on_failure: true
+
+schedule:
+  enabled: false
+  cron: "0 2 * * *" # Daily at 2 AM
+  timezone: "UTC"

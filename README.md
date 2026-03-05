@@ -43,13 +43,13 @@ Feel free to explore the projects and learn more about backend development using
 
 ## Intermediate projects
 - [Caching Proxy](./intermediate/caching-proxy-server/README.md)
-    - Build a caching server that caches responses from other servers. 
+    - Build a caching server that caches responses from other servers.
     - [Challenge Details](https://roadmap.sh/projects/caching-server)
 - [Markdown Note-taking API](./intermediate/markdown-note-app/README.md)
-    - Build a note-taking app that uses markdown for formatting. 
+    - Build a note-taking app that uses markdown for formatting.
     - [Challenge Details](https://roadmap.sh/projects/markdown-note-taking-app)
 - [URL Shortening Service](./intermediate/url-shortening-service/README.md)
-    - Build a URL shortening service that shortens long URLs. 
+    - Build a URL shortening service that shortens long URLs.
     - [Challenge Details](https://roadmap.sh/projects/url-shortening-service)
 - [Broadcast Server](./intermediate/broadcast-server/README.md)
     - Build a simple WebSocket server for real-time communication.
@@ -62,7 +62,13 @@ Feel free to explore the projects and learn more about backend development using
     - [Challenge Details](https://roadmap.sh/projects/fitness-workout-tracker)
 - [E‑Commerce API Service](./intermediate/e-commerce-api-service/README.md)
     - Layered REST API with JWT auth, products, cart, atomic checkout, SQLite, and Stripe PaymentIntent integration.
-    - [Challenge Details](https://roadmap.sh/projects/e-commerce-api-service)
+    - [Challenge Details](https://roadmap.sh/projects/ecommerce-api)
+
+
+## Advanced projects
+- [Database Backup Utility](./advanced/database-backup-utility/README.md)
+    - A comprehensive CLI tool for backing up and restoring multiple database types with cloud storage support, compression, incremental backups, and automated scheduling.
+    - [Challenge Details](https://roadmap.sh/projects/database-backup-utility)
 
 
 ## Futher Details about the challenge
