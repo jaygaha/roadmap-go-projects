@@ -189,7 +189,7 @@ Response includes client_secret and stripe_payment_id.
 - Swagger UI not loading: confirm /swagger is routed and docs/ exists; regenerate with `swag init`
 - Admin menu hidden: ensure you logged in via /auth so a JWT is present in localStorage and role=admin in the token payload
 
-## Project Link
+## Project requirements
 
 - [E-Commerce API](https://roadmap.sh/projects/ecommerce-api)
 
