@@ -1,0 +1,16 @@
+services:
+  app:
+    build: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - redis
+    environment:
+      - REDIS_ADDR=redis:6379
+    volumes:
+      - ./leaderboard.db:/root/leaderboard.db
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
