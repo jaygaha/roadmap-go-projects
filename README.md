@@ -72,6 +72,9 @@ Feel free to explore the projects and learn more about backend development using
 - [Real-time Leaderboard System](./advanced/realtime-leaderboard-system/README.md)
     - A real-time leaderboard system for ranking and scoring users across various games/activities, powered by Redis sorted sets.
     - [Challenge Details](https://roadmap.sh/projects/realtime-leaderboard-system)
+- [Movie Reservation System](./advanced/movie-reservation-system/README.md)
+    - A movie reservation system that allows users to book movie tickets and manage their reservations.
+    - [Challenge Details](https://roadmap.sh/projects/movie-reservation-system)
 
 ## Futher Details about the challenge
 
